@@ -19,6 +19,8 @@
 
     
     NSLog(@"康");
+    
+    NSLog(@"老衲姓罗");
 }
 
 - (void)didReceiveMemoryWarning {
