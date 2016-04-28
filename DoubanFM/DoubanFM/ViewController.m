@@ -22,6 +22,7 @@
     
     NSLog(@"老衲姓罗");
     NSLog(@"huijiejie 很帅");
+    NSLog(@"bbnnj");
     
     
     
