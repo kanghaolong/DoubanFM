@@ -21,6 +21,7 @@
     NSLog(@"康");
     
     NSLog(@"老衲姓罗");
+    NSLog(@"哈哈哈哈哈哈哈哈");
 }
 
 - (void)didReceiveMemoryWarning {
