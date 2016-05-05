@@ -15,9 +15,7 @@
 {
     
     NSInteger _index;           //计数
-    
-    UILabel *_songLabel;        //歌名
-    UILabel *_singerLabel;      //歌手名
+
     UIImageView *_posterView;   //海报
     
     UIButton *_playButton;      //播放按钮
@@ -62,18 +60,14 @@
 #pragma mark - 解析歌曲信息并且播放
 - (void)readSongInfo {
     
-    //拿到歌曲信息文件路径
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"music" ofType:@"plist"];
     
-    //arrayWithContentsOfFile:把路径转换成数组
     NSArray *infoArr = [NSArray arrayWithContentsOfFile:filePath];
     
     //根据下标获取数组里面的字典
     NSDictionary *dic = infoArr[_index];
     
     //获取字典里的信息
-    _songLabel.text = dic[@"song"];
-    _singerLabel.text = dic[@"singer"];
     _posterView.image = [UIImage imageNamed:dic[@"image"]];
     
     NSString *songStr = dic[@"url"];
@@ -98,19 +92,15 @@
         _proSlider.value = 0;
         
     }
-    
-    //初始化播放器
     _player = [[AVAudioPlayer alloc] initWithContentsOfURL:songUrl error:nil];
-    //设置代理
+    
     _player.delegate = self;
     
-    //准备播放
     [_player prepareToPlay];
     
     //获取歌曲的总时长
     _proSlider.maximumValue = _player.duration;
     
-    //右边时间表签得值
     _rightTime.text = [self covertTimeToString:_player.duration];
     
     //切换歌曲
@@ -155,8 +145,6 @@
     //允许接受用户交互操作(接受响应事件)
     posterView.userInteractionEnabled = YES;
     
-    
-    //创建图片对象
     UIImage *image = [UIImage imageNamed:@"gem.jpg"];
     
     posterView.image = image;
@@ -169,10 +157,7 @@
     UIButton *hiddenButton = [UIButton buttonWithType:UIButtonTypeCustom];
     hiddenButton.frame = CGRectMake(0, 80, kScreenWidth, kScreenHeight - 80 - 150);
     
-    //设置 button 背景为透明的颜色
     hiddenButton.backgroundColor = [UIColor clearColor];
-    
-    //TODO:隐藏按钮事件
     [hiddenButton addTarget:self action:@selector(hiddenView:) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -188,26 +173,19 @@
     
     navigationView.backgroundColor = [UIColor blackColor];
     
-    //修改透明度
     navigationView.alpha = 0.7;
-    
-    //设置tag值
+
     navigationView.tag = 1000;
     
-    //添加到父视图上显示
     [self.view addSubview:navigationView];
-    
     
     //左边的按钮
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    //设置frame
     leftButton.frame = CGRectMake(10,30, 60, 44);
     
     //设置图片
     [leftButton setImage:[UIImage imageNamed:@"player_btn_close_normal@2x.png"] forState:UIControlStateNormal];
-    
-    //TODO:左边按钮事件
     
     [navigationView addSubview:leftButton];
     
@@ -215,33 +193,10 @@
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
     rightButton.frame = CGRectMake(kScreenWidth - 60 - 10, 30, 60, 44);
     
-    //设置图片
     [rightButton setImage:[UIImage imageNamed:@"player_btn_more_normal@2x.png"] forState:UIControlStateNormal];
     
-    //TODO:右边按钮的事件
     [navigationView addSubview:rightButton];
     
-    //设置歌名 Label
-    UILabel *songLabel = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth - 200)/2, 20, 200, 35)];
-    songLabel.text = @"白色钢琴";
-    songLabel.textColor = [UIColor whiteColor];
-    //设置居中
-    songLabel.textAlignment = NSTextAlignmentCenter;
-    songLabel.font = [UIFont boldSystemFontOfSize:20];
-    [navigationView addSubview:songLabel];
-    
-    _songLabel = songLabel;
-    
-    //设置歌手 label
-    UILabel *singerLabel = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth - 200)/2, 55, 200, 25)];
-    singerLabel.text = @"Tank";
-    singerLabel.textColor = [UIColor whiteColor];
-    //设置居中
-    singerLabel.textAlignment = NSTextAlignmentCenter;
-    singerLabel.font = [UIFont systemFontOfSize:16];
-    [navigationView addSubview:singerLabel];
-    
-    _singerLabel = singerLabel;
     
 }
 
@@ -253,10 +208,8 @@
     //设置背景颜色
     bottomView.backgroundColor = [UIColor blackColor];
     
-    //设置tag值
     bottomView.tag = 2000;
     
-    //设置透明度
     bottomView.alpha = 0.7;
     
     [self.view addSubview:bottomView];
@@ -268,15 +221,9 @@
     _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
     _playButton.frame = CGRectMake((kScreenWidth - 64)/2, (150 - 64)/2 , 64, 64);
-    
-    //    NSLog(@"%@",NSStringFromCGPoint(bottomView.center));
-    //中心点坐标
-    //    playButton.center = bottomView.center;
-    
     //设置图片
     [_playButton setImage:[UIImage imageNamed:@"player_btn_play_normal@2x.png"] forState:UIControlStateNormal];
     
-    //TODO:播放
     [_playButton addTarget:self action:@selector(playAction:) forControlEvents:UIControlEventTouchUpInside];
     
     [bottomView addSubview:_playButton];
