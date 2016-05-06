@@ -33,7 +33,7 @@
     
     BOOL _isLove;
     BOOL isLove[10];
-    
+
 }
 @end
 
@@ -120,7 +120,6 @@
         
         _isLove = NO;
     }
-    
     
 }
 
@@ -270,7 +269,6 @@
     [_proSlider setMaximumTrackImage:[UIImage imageNamed:@"player_slider_playback_right@2x.png"] forState:UIControlStateNormal];
     [_proSlider setThumbImage:[UIImage imageNamed:@"player_slider_playback_thumb@2x.png"] forState:UIControlStateNormal];
     
-    //TODO:滑块事件
     [_proSlider addTarget:self action:@selector(dragSliderChangeValue:) forControlEvents:UIControlEventValueChanged];
     
     [bottomView addSubview:_proSlider];
@@ -353,7 +351,6 @@
     if (_index > 4) {
         _index = 0;
     }
-    
     //读取歌曲信息
     [self readSongInfo];
     
@@ -446,6 +443,17 @@
     
     NSInteger index = sender.tag - 200;
     switch (index) {
+        case 0:{
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"抱歉" message:@"暂不支持下载" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            }];
+            [alert addAction:cancel];
+            [self presentViewController:alert animated:YES completion:^{
+            }];
+            
+        }
+            break;
+
         case 1: {
             
             //判断是否收藏 _isLove 默认为 NO
@@ -471,7 +479,36 @@
         }
             
             break;
+        case 2:{
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"抱歉" message:@"未搜索到相关歌词" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            }];
+            [alert addAction:cancel];
+            [self presentViewController:alert animated:YES completion:^{
+            }];
             
+        }
+            break;
+        case 3:{
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"抱歉" message:@"暂取消循环歌词功能" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            }];
+            [alert addAction:cancel];
+            [self presentViewController:alert animated:YES completion:^{
+            }];
+            
+        }
+            break;
+        case 4:{
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"抱歉" message:@"未开启分享功能" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            }];
+            [alert addAction:cancel];
+            [self presentViewController:alert animated:YES completion:^{
+            }];
+            
+        }
+            break;
         default:
             break;
     }
